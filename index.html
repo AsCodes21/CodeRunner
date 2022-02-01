@@ -64,6 +64,8 @@
 		$(".code").show();
 		$(".code").append(value)
 		$("#back").removeClass("disabled");
+		let t = $(".code title").text();
+		$("title").text(t);
 	});
 	$("#back").click(function(){
 		$("#back").hide();
@@ -71,6 +73,7 @@
 		$(".code").empty()
 		$(".vanish").show();
 		$("#back").addClass("disabled");
+		$("title").text("CodeRunner");
 	});
 </script>
 </html>
