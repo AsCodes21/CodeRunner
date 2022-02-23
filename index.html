@@ -14,12 +14,38 @@
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid vanish">
             <a class="navbar-brand" href="#">CodeRunner</a>
+             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+         <li class="nav-item">
+          <a class="nav-link active html" id = "a" aria-current="page" href="#">Html</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link active css" id = "b" aria-current="page" href="#">CSS</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link active js " id = "c" aria-current="page" href="#">JavaScript</a>
+        </li>                
+             </ul>
+            <button class="btn btn-dark d-flex" id = "mode">Enable dark Mode</button>
       </div>        
     </nav>
          <div class="container vanish">
         <div class="mb-3 container">
             <h1 style="user-select: auto;" class="my-3">Write your code here:</h1>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="20"
+<div class="Css">
+            <textarea class="form-control" id = "CSSCODE" id="exampleFormControlTextarea1" rows="20"
+                id="i">
+h1{
+	color:red;
+}
+</textarea>	
+</div>
+<div class="Js">
+	            <textarea class="form-control" id = "JSCODE" id="exampleFormControlTextarea1" rows="20"
+                id="i">
+console.log("Welcome to Code Runner")
+</textarea>
+</div>
+            <div class="Html"><textarea class="form-control" id = "HtmlCode" id="exampleFormControlTextarea1" rows="20"
                 id="i">
 <!-- Template start -->
 <!DOCTYPE html>
@@ -32,34 +58,63 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	<title>My site</title>
 </head>
-<style>
-	/*Type your css here*/
-</style>
+<style></style>
 <body>
 	<h1>Hello World</h1>
 </body>
-<script>
-	console.log("Hello World")
-</script>
+<script></script>
 </html>
 <!-- Template end -->
-</textarea>
+</textarea></div>
      <button class = "btn btn-primary run my-3">Run code</button>
      </div> 
      </div> 
-     </div>
+     </div>     
  <button  id = "back" class="btn btn-danger" style = "position:fixed;right: 10px;bottom: 10px;">Go back to code</button> 
      <div class="code">
      	
      </div>
 </body>
 <script>
-	$("title").text("CodeRunner");
+	$(".Css").hide()
+	$(".Js").hide()
+	// $(".Html").hide()
+	$("#a").addClass("disabled")
+	$("title").text("CodeRunner")
 	$("#back").hide();
 	$(".code").hide();
 	$("#back").addClass("disabled");
+	//CSS SWITCHER
+	$(".css").click(function(){
+	$("#b").addClass("disabled")
+	$("#a").removeClass("disabled")
+	$("#c").removeClass("disabled")
+	$(".Css").show()
+	$(".Js").hide()
+	$(".Html").hide()
+	})
+	//JS SWITCHER
+	$(".js").click(function(){
+	$("#c").addClass("disabled")
+	$("#a").removeClass("disabled")
+	$("#b").removeClass("disabled")
+	$(".Js").show()
+	$(".Css").hide()
+	$(".Html").hide()
+	})
+	//HTML SWITCHER
+	$(".html").click(function(){
+	$("#a").addClass("disabled")
+	$("#b").removeClass("disabled")
+	$("#c").removeClass("disabled")
+	$(".Html").show()
+	$(".Js").hide()
+	$(".Css").hide()
+	})
 	$(".run").click(function(){
-		let value = $("textarea").val();
+		let css = $("#CSSCODE").val()
+		let js = $("#JSCODE").val()
+		let value = $("#HtmlCode").val();
 		$("#back").show();
 		$(".vanish").hide();
 		$(".code").show();
@@ -67,8 +122,23 @@
 		$("#back").removeClass("disabled");
 		let t = $(".code title").text();
 		$("title").text(t);
+		$(".code style").text(css);
+		var script=document.createElement('script');
+		script.type='text/javascript';
+		script.innerHTML = `${js}`;
+		$(".code").append(script);
+		//Back to light mode
+		$("body").css({ "background-color": "white", "color": "black" });
+        $("#mode").text("Enable dark mode");
+        $("#mode").removeClass("btn btn-light");
+        $("#mode").addClass("btn btn-dark");
+        $("nav").removeClass("navbar navbar-expand-lg navbar-dark bg-dark");
+        $("nav").addClass("navbar navbar-expand-lg navbar-light bg-light");
+        $("textarea").css({ "background-color": "white", "color": "black" });
+
 	});
 	$("#back").click(function(){
+		console.clear();
 		$("#back").hide();
 		$(".code").hide();
 		$(".code").empty()
@@ -76,5 +146,31 @@
 		$("#back").addClass("disabled");
 		$("title").text("CodeRunner");
 	});
+
+	//MODES
+	  $("#mode").click(function () {
+        let a = $("body").css("background-color");
+        let white = "rgb(255, 255, 255)";
+        if (a == white) {
+            $("body").css({ "background-color": "black", "color": "white" });
+            $("#mode").text("Enable light mode");
+            $("#mode").removeClass("btn btn-dark");
+            $("#mode").addClass("btn btn-light");
+            $("nav").removeClass("navbar navbar-expand-lg navbar-light bg-light");
+            $("nav").addClass("navbar navbar-expand-lg navbar-dark bg-dark");
+            $("textarea").css({ "background-color": "black", "color": "white" });
+        }
+        else {
+            $("body").css({ "background-color": "white", "color": "black" });
+            $("#mode").text("Enable dark mode");
+            $("#mode").removeClass("btn btn-light");
+            $("#mode").addClass("btn btn-dark");
+            $("nav").removeClass("navbar navbar-expand-lg navbar-dark bg-dark");
+            $("nav").addClass("navbar navbar-expand-lg navbar-light bg-light");
+            $("textarea").css({ "background-color": "white", "color": "black" });
+        }
+
+    })
+
 </script>
 </html>
